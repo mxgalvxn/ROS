@@ -1,16 +1,29 @@
 #!/usr/bin/env python
 import rospy
-from std_msgs.msg import String
+import numpy as np
+
+from std_msgs.msg import Float32
+
+signal_data = 0
 
 def callTime(msg):
-    rospy.loginfo( " I heard %s", msg.data)
+    rospy.loginfo( " Time: %s", msg.data)
+
+def callSignal1(msg):
+    rospy.loginfo( " Time: %s", msg.data)
 
 def callSignal(msg):
-    rospy.loginfo( " I heard %s", msg.data)
+    global signal_data
+    signal_data = msg.data + 10
+    signal_data /=2
+    rospy.loginfo( " Sine %s", signal_data)
     
 if __name__ == '__main__':
     rospy.init_node("process")
-    rospy.Subscriber("time", String, callTime)
-    rospy.Subscriber("signal", String, callSignal)
+    rospy.Subscriber("signal", Float32,callSignal1 )
+    rospy.Subscriber("signal modified ", Float32, callSignal)
+    rate = rospy.Rate(10)
 
-    rospy.spin()
+    while not rospy.is_shutdown():
+        
+       rate.sleep()
