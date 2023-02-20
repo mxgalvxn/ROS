@@ -9,7 +9,8 @@ if __name__ == '__main__':
     rate = rospy.Rate(10)
 
     while not rospy.is_shutdown():
-        for i in range (10):
-            hello_str = np.sin(t)   
-            pub.publish(hello_str)  
-            rate.sleep()    
+       time = rospy.get_time() 
+       pub.publish(time)
+       signal = np.sin(time)
+       pub.publish(signal)  
+       rate.sleep()    
