@@ -14,16 +14,18 @@ def callSignal1(msg):
 
 def callSignal(msg):
     global signal_data
-    signal_data = msg.data + 10
-    signal_data /=2
+    signal_data = msg.data
     rospy.loginfo( " Sine_modified %s", signal_data)
     
 if __name__ == '__main__':
     rospy.init_node("process")
-    rospy.Subscriber("signal", Float32,callSignal1 )
-    rospy.Subscriber("signal", Float32, callSignal)
+    signal_processed = rospy.Subscriber("signal", Float32, callSignal)
+    pub = rospy.Publisher("signal_processed", Float32, queue_size = 10)
     rate = rospy.Rate(10)
 
     while not rospy.is_shutdown():
-        
-       rate.sleep()
+        if signal_data < 0:
+            signal_data = signal_data*-1
+        signal_data/=2
+        pub.publish(signal_data)  
+        rate.sleep()
