@@ -26,6 +26,7 @@ if __name__ == '__main__':
     while not rospy.is_shutdown():
         if signal_data < 0:
             signal_data = signal_data*-1
+        signal_data += 10
         signal_data/=2
         pub.publish(signal_data)  
         rate.sleep()
