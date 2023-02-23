@@ -1,0 +1,25 @@
+<?xml version="1.0" ?>
+<launch>  
+
+        <rosparam file = "$(find talkerlistener)/config/params.yaml" command = "load" />
+
+        <group ns = "Group1">    
+                <node name="talker" pkg="talkerlistener" type="talker.py" output="screen" launch-prefix="gnome-terminal --command"/> 
+
+                <node name="listener" pkg="talkerlistener" type="listener.py" launch-prefix="gnome-terminal --command" />
+        </group>
+
+        <group ns = "Group2">
+                <node name="talker2" pkg="talkerlistener" type="talker2.py" output="screen" launch-prefix="gnome-terminal --command"/> 
+                
+                <node name="listener" pkg="talkerlistener" type="listener.py" output="screen" launch-prefix="gnome-terminal --command" />
+        </group>
+
+        <group ns = "Group3">
+                <node name="talker3" pkg="talkerlistener" type="talker3.py" output="screen" launch-prefix="gnome-terminal --command"/> 
+
+                <node name="listener" pkg="talkerlistener" type="listener.py" output="screen" launch-prefix="gnome-terminal --command" />
+        </group>
+        
+
+</launch>
