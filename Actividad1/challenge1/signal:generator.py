@@ -9,12 +9,11 @@ if __name__ == '__main__':
     pub1 = rospy.Publisher("signal", Float32, queue_size = 10)
     rospy.init_node("signal_generator")
     rate = rospy.Rate(10)
-    time = 0
+
 
     while not rospy.is_shutdown():
-       time+=.01
+       time = rospy.get_time()
        pub.publish(time)
        signal = np.sin(time)
        pub1.publish(signal)  
        rate.sleep()    
-
