@@ -1,0 +1,16 @@
+Message: "YAML File Global"
+
+Group1: 
+  Message: "YAML File Local G1"
+  talker:
+    Message: "YAML File Private G1"
+
+Group2: 
+  Message: "YAML File Local G2"
+  talker:
+    Message: "YAML File Private G2"
+
+Group3: 
+  Message: "YAML File Local G3"
+  talker:
+    Message: "YAML File Private G3"
