@@ -38,10 +38,10 @@ class SimpleSystem:
   
 
     # Setup the Subscribers
-    rospy.Subscriber("/motor_input",motor_input,self.input_callback)
+    rospy.Subscriber("motor_input",motor_input,self.input_callback)
 
     #Setup de publishers
-    self.state_pub = rospy.Publisher("/motor_output", motor_output, queue_size=1)
+    self.state_pub = rospy.Publisher("motor_output", motor_output, queue_size=1)
 
   #Define the callback functions
   def input_callback(self,msg):
