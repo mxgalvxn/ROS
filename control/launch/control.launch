@@ -1,8 +1,7 @@
-<?xml version="1.0" ?>
 <launch>
     <rosparam file = "$(find control)/config/control_params.yaml" command = "load"/>
     <rosparam file = "$(find control)/config/system_params.yaml" command = "load"/>
-    <param name="set_point" value="5" />
+    <param name="set_point" value="17" />
     
     <node name="system_response_plot" pkg="rqt_plot" type="rqt_plot" args="/setpoint /motor_output/output /motor_input/input"/>
 
