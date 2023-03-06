@@ -1,0 +1,13 @@
+<?xml version="1.0" ?>
+<launch>
+
+    <node name="motor" pkg="rosserial_python" type="serial_node.py" >
+        <param name="port"	type="string"	value="/dev/ttyUSB0"/>
+        <param name="baud" type="int" value = "57600"/>   
+    </node>
+    <node name="sender" pkg="motores" type="sender"  output="screen"/>
+    <param name="pwm_type" type="int" value="1"/>
+    <node name="pwm_plot" pkg="rqt_plot" type="rqt_plot" args="/pwm"/>
+    <node name="pwm_graph" pkg="rqt_graph" type="rqt_graph" args=""/>
+    
+</launch>
