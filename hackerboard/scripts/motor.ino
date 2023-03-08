@@ -1,37 +1,36 @@
 #include <ros.h>
 #include <std_msgs/Float32.h>
 
-#define pwm 4
-#define mot1 18
-#define mot2 15
+#define PWM_PIN 4
+#define MOTOR_PIN_1 18
+#define MOTOR_PIN_2 15
 
+ros::NodeHandle node_handle;
 
-ros::NodeHandle handler;
-
-void pwmCallback(const std_msgs::Float32 &pwmMsg) {
-  ledcWrite(0, abs((int)(pwmMsg.data*255)));
-  if (pwmMsg.data > 0) {
-    digitalWrite(mot1, 1);
-    digitalWrite(mot2, 0);
+void PwmCallback(const std_msgs::Float32 &pwm_msg) {
+  ledcWrite(0, abs((int)(pwm_msg.data * 255)));
+  if (pwm_msg.data > 0) {
+    digitalWrite(MOTOR_PIN_1, HIGH);
+    digitalWrite(MOTOR_PIN_2, LOW);
   } else {
-    digitalWrite(mot1, 0);
-    digitalWrite(mot2, 1);
+    digitalWrite(MOTOR_PIN_1, LOW);
+    digitalWrite(MOTOR_PIN_2, HIGH);
   }
 }
 
-ros::Subscriber<std_msgs::Float32> sub("/pwm", pwmCallback);
+ros::Subscriber<std_msgs::Float32> subscriber("/pwm", PwmCallback);
 
 void setup() {
   ledcSetup(0, 980, 8);
-  pinMode(mot1, OUTPUT);
-  pinMode(mot2, OUTPUT);
-  pinMode(pwm, OUTPUT);
-  ledcAttachPin(pwm, 0);
-  handler.initNode();
-  handler.subscribe(sub);
+  pinMode(MOTOR_PIN_1, OUTPUT);
+  pinMode(MOTOR_PIN_2, OUTPUT);
+  pinMode(PWM_PIN, OUTPUT);
+  ledcAttachPin(PWM_PIN, 0);
+  node_handle.initNode();
+  node_handle.subscribe(subscriber);
 }
 
 void loop() {
-  handler.spinOnce();
+  node_handle.spinOnce();
   delay(1);
 }
